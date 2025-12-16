@@ -482,209 +482,268 @@ Bạn sẽ đưa ra giải pháp nào là hiệu quả nhất
 
 **Giải thích**
 
-## Câu 46: Bạn đã deploy 1 ứng dụng Java lên 1 EC2 instance, nó dùng X-Ray SDK. Khi test từ máy tính c
+## Câu 46: Bạn đã deploy 1 ứng dụng Java lên 1 EC2 instance, nó dùng X-Ray SDK. Khi test từ máy tính cá nhân, ứng dụng gửi dữ liệu tới X-Ray nhưng khi ứng dụng chạy trên EC2 thì ứng dụng lại không thể gửi dữ liệu tới X-Ray.
+
+Giải pháp nào không giúp bạn debug vấn đề này ?
 
 **Đúng**
--
+- X-Ray sampling
 
 **Sai**
--
--
--
+- CloudTrail
+- EC2 Instance Role
+- EC2 X-Ray Daemon
 
 **Giải thích**
 
-## Câu 21:
+X-Ray sampling chỉ quyết định việc gửi bao nhiêu % request lên X-Ray. Nếu 0 trace được gửi thì không phải do sampling, mà do IAM/ deamon/ netowrk
+
+## Câu 47: Bạn đang tạo 1 Cloud Formation template để deploy ứng dụng CMS của bạn chạy trên 1 EC2 instance trong AWS Account của bạn. Vì ứng dụng được triển khai trên nhiều region, bạn cần tạo 1 map cho tất cả các giá trị có thể của base AMI
+
+Bạn sẽ invoke `!FindInMap` function thế nào để fulfill trường hợp này ? 
 
 **Đúng**
--
+- !FindInMap [ MapName, TopLevelKey, SecondLevelKey ]
 
 **Sai**
--
--
--
+- !FindInMap [ MapName, TopLevelKey ]
+- !FindInMap [ MapName ]
+- !FindInMap [ MapName, TopLevelKey, SecondLevelKey, ThirdLevelKey ]
 
 **Giải thích**
 
-## Câu 21:
+FindInMap luôn luôn có 3 tham số : Map -> Row -> Column
+
+## Câu 48: Một dev đã hỏi để tạo 1 ứng dụng để deploy trên nhiều EC2 instance. Cấu hnhf phải allow cho full control trên tất cả các bước sử dụng Blue / Green Deployment
+
+Dịch vụ nào sẽ giúp bạn đạt được điều này 
 
 **Đúng**
--
+- CodeDeploy
 
 **Sai**
--
--
--
+- Elastic Beanstalk
+- CodeBuild
+- CodePipeline
 
 **Giải thích**
 
-## Câu 21:
+CodeDeploy là 1 deployment service tự động deploy ứng dụng lên EC2, on-premises instance, lambda. Đây là 1 Fully-Managed CI service
+
+## Câu 49: Một dev team muốn deploy 1 Lambda function yêu cầu mức sử dụng CPU đáng kể. Là 1 Dev Associate, Lựa chọn nào bạn sẽ đề xuất để giảm runtime trung bình của function 
 
 **Đúng**
--
+- Deploy the function with its memory allocation set to the maximum amount
 
 **Sai**
--
--
--
+- Deploy the function using Lambda layers
+- Deploy the function with its CPU allocation set to the maximum amount
+- Deploy the function into multiple AWS Regions
 
 **Giải thích**
 
-## Câu 21:
+Trong AWS Lambda CPU không được cấu hình riêng, CPU được cấp phát tỉ lệ thuật với Memory. Khi tăng memory -> tăng CPU -> Giảm runtime
+
+## Câu 50: Bạn đã tạo 1 ELB đã đánh dấu tất cả EC2 instance trong target group là unhealthy. Bất ngờ, khi ban nhập vào địa chỉ IP của EC2 trên web browser, bạn có thể truy cập địa chỉ IP của website của bạn.
+
+Lý do nào có thể khiến instance của bạn bị đánh dấu là unhealthy ? 
 
 **Đúng**
--
+- The route for the health check is misconfigured
+- The security group of the EC2 instance does not allow for traffic from the security group of the Application Load Balancer
 
 **Sai**
--
--
--
+- You need to attach Elastic IP to the EC2 instances
+- The EBS volumes have been improperly mounted
+- Your web-app has a runtime that is not supported by the Application Load Balancer
 
 **Giải thích**
 
-## Câu 21:
+## Câu 51: 1 công ty hoạt động về công nghệ trên 1 nhóm EC2 instance. Công ty cần 1 phần mềm đảm bảo available trên instance để hỗ trợ workflow của họ mỗi ngày. Team dev đã bàn bạc để sử dụng tính năng User Data của EC2 instace
+
+Lựa chọn nào sau đây là đúng về User Data của EC2 Configuration ?
 
 **Đúng**
--
+- By default, user data runs only during the boot cycle when you first launch an instance
+- By default, scripts entered as user data are executed with root user privileges
 
 **Sai**
--
--
--
+- By default, user data is executed every time an EC2 instance is re-started
+- When an instance is running, you can update user data by using root user credentials
+- By default, scripts entered as user data do not have root user privileges for executing
 
 **Giải thích**
 
-## Câu 21:
+## Câu 52: 1 Dev được giao phó công việc đảm bảo bảo mật cho S3 buckets được chia sẻ trên 1 team có số lượng thành viên lớn. Một thời gian sau, 1 bucket policy đã thay đổi, bucket bị lỗi khả dụng cho tất cả mọi người cả bên ngoài tổ chức
+
+Tính năng/Service nào sẽ giúp dev giải quyết chính xác vấn đề bảo mật này với nỗ lực thấp nhất.
 
 **Đúng**
--
+- IAM Access Analyzer
 
 **Sai**
--
--
--
+- S3 Analytics
+- Access Advisor feature on IAM console
+- S3 Object Lock
 
 **Giải thích**
 
-## Câu 21:
+**IAM Access Analyzer** tự động phân tích plicies, phát hiện resource, báo cáo ngay lập tức nếu Bucket policy được truy cập ngòa tổ chức, resource bị shared không mong muốn.
+
+## Câu 53: Để enable HTTPS connections cho ứng dụng web được deploy trên AWS, 1 dev đang tao 1 server certificate.
+
+AWS Entities nào có thể được sử dụng để deploy SSL/TLS server certificates
 
 **Đúng**
--
+- AWS Certificate Manager
+- IAM
 
 **Sai**
--
--
--
+- AWS Systems Manager
+- AWS Secrets Manager
+- AWS CloudFormation
 
 **Giải thích**
 
-## Câu 21:
+IAM có thể dùng để deploy SSL/TLS vì IAM có thể Upload, Store, Manage server certificate. Chủ yếu dùng cho ELB classic, một số trường hợp Legacy Application vẫn OK.
+
+## Câu 54: Bạn đang lưu trữ thông tin BIDs trên ứng dụng và bạn muốn tư động hết hạn dữ liệu trên DynamoDB table sau 1 tuần. Bạn nên sử dụng gì
 
 **Đúng**
--
+- Use TTL
 
 **Sai**
--
--
--
+- Use DAX
+- Use DynamoDB Streams
+- Use a Lambda function
 
 **Giải thích**
 
-## Câu 21:
+## Câu 55: Bạn là 1 dev đang làm việc trên Lambda function được gọi thông qua REST API's sử dụng AWS API Gateway. Hiện tại, khi có 1 GET request được invoke bởi consumer, toàn bộ dữ liệu được trả về bởi Lambda function đều hiển thị. Team lead yêu cầu bạn format data response.
+
+Tính năng nào của API Gateway bạn có thể sử dụng để giải quyết vấn đề này ?
 
 **Đúng**
--
+- Use API Gateway Mapping Templates
 
 **Sai**
--
--
--
+- Use an API Gateway stage variable
+- Deploy an interceptor shell script
+- Use a Lambda custom interceptor
 
 **Giải thích**
 
-## Câu 21:
+Mapping templates cho phép transform response từ lambda, lọc field, đổi cấu trúc JSON, định dang output theo yêu cầu của client.
+
+## Câu 56: 1 Công ty sử dụng Elastic Beanstalk để quản lý IT infra của họ trên AWS và họ muốn deploy phiên bản mới của ứng dụng trên EC2 instance. Khi deployment được thực thi, một số instance sẽ phục vụ request với phiên bản cũ của ứng dụng, trong khi các instance khác sẽ phục vụ requests sử dụng phiên bản mới cho tới khi deployment hoàn tất.
+
+Phương pháp Deployment nào đáp ứng được yêu cầu mà không tăng chi phí ?
 
 **Đúng**
--
+- Rolling
 
 **Sai**
--
--
--
+- Immutable
+- Rolling with additional batches
+- All at once
 
 **Giải thích**
 
-## Câu 21:
+Rolling sẽ đáp ứng được yêu cầu mà ít chi phí nhất. 
+
+## Câu 57: Khi đang chạy 1 Rolling deployment trong Elastic Beanstalk environment, chỉ có 2 batchs completed việc deployment thành công, trong khi các batches deploy cuối bị failed. Sau đó team dev đã terminate instance từ các deployment fail.
+
+Trạng thái trước của các instance bị fail là gì ? 
 
 **Đúng**
--
+- Elastic Beanstalk will replace the failed instances with instances running the application version from the most recent successful deployment
 
 **Sai**
--
--
--
+- Elastic Beanstalk will replace the failed instances after the application version to be installed is manually chosen from AWS Console
+- Elastic Beanstalk will replace the failed instances with instances running the application version from the oldest successful deployment
+- Elastic Beanstalk will not replace the failed instances
 
 **Giải thích**
 
-## Câu 21:
+Elastic Beanstalk luôn cố gắng giữ environment ở trạng thái ổn định nhất. Khi instance bị terminate thì EB tự động launch instance mới và sẽ chạy version của lần deploy thành công gần nhất.
+
+## Câu 58: Công ty của bạn đã lưu trữ tất cả secrets của ứng dụng trên SSM Parameter Store. Team kiểm toán đã yêu cầu lấy 1 báo cáo để hiểu rõ hơn khi nào và ai đẫPI call tới SSM Parameter Store.
+
+Lựa chọn nào sau đấy có thể được sử dụng để lập báo cáo của bạn ?
 
 **Đúng**
--
+- Use AWS CloudTrail to get a record of actions taken by a user
 
 **Sai**
--
--
--
+- Use SSM Parameter Store Access Logs in CloudWatch Logs to get a record of actions taken by a user
+- Use SSM Parameter Store Access Logs in S3 to get a record of actions taken by a user
+- Use SSM Parameter Store List feature to get a record of actions taken by a user
 
 **Giải thích**
 
-## Câu 21:
+Vì CloudTrail ghi lại mọi API call tới AWS. Đây là công cụ chính để audit.
+
+## Câu 59: 1 tổ chức có văn phòng trên nhiều địa điểm và team tech đã cấu hình 1 ALB trên nhiều target group trong nhiều AZs. Team muốn phân tích về latencies và client's IP của incoming request.
+
+Tính năng nào của LB sẽ giúp sưu tập các thông tin yêu cầu ? 
 
 **Đúng**
--
+- ALB access logs
 
 **Sai**
--
--
--
+- ALB request tracing
+- CloudWatch metrics
+- CloudTrail logs
 
 **Giải thích**
 
-## Câu 21:
+ALB access logs cung cấp hả năng ghi lại chi tiết thông tin về request gửi tới LB của bạn. Mỗi log chứa thông tin của mỗi lần request đã nhận, chẳng hạn như client's IP address, latencies, request paths, server responses.
+
+## Câu 60: là 1 DVA, bạn được yêu cầu tạo 1 Elastic Beanstalk environment để xử lý deployment cho 1 ứng dụng cần high traffic và high availability. Bạn cần deploy phiên bản mới sử dụng Beanstalk trong khi đảm bảo Performance và availability không bị ảnh hưởng. 
+
+Lựa chọn nào sau đây không phải là cách tối ưu nhất để làm điều này trong khi giữ giải pháp ở mức chi phí hiệu quả ?
 
 **Đúng**
--
+- Deploy using 'Rolling with additional batch' deployment policy
 
 **Sai**
--
--
--
+- Deploy using 'Rolling' deployment policy
+- Deploy using 'Immutable' deployment policy
+- Deploy using 'All at once' deployment policy
 
 **Giải thích**
 
-## Câu 21:
+Vì giải pháp này đắt hơn vì chạy batch process
+
+## Câu 61: là 1 DVA, bạn đã cấu hình AWS CLI trên workstation của bạn. Region mặc định của bạn là us-east-1 và IAM user của bạn có Permission để thực hiện lệnh trên services chẳng hạn như EC2, S3 và RDS ở bất kỳ region nào. Bạn muốn thực thi 1 command để stop 1 EC2 instance trong us-east-2 region.
+
+Lựa chọn gì sau đây là giải pháp tối ưu nhất để giải quyết trường hợp này ?
 
 **Đúng**
--
+- Use the --region parameter
 
 **Sai**
--
--
--
+- You should create a new IAM user just for that other region
+- Use boto3 dependency injection
+- You need to override the default region by using aws configure
 
 **Giải thích**
 
-## Câu 21:
+## Câu 62: Quản lý tại công ty IT muốn setup thành viên truy cập cho các user được chỉ định vào folders ở S3 bucket `bucket-a`. Vì vậy, user x chỉ có thể truy cập vào folder của họ `bucket-a/user/user-x/` và user y chỉ có thể truy cập vào folder của cô ấy `bucket-a/user/user-y/` và cứ như thế.
+
+là DVA, Bạn sẽ đề xuất kiến trúc IAM nào để có thể áp dụng chung cho tất cả thành viên trong nhóm mà quản lý không cần phải tạo IAM policy riêng biệt cho mỗi thành viên trong team. 
 
 **Đúng**
--
+- IAM policy variables
 
 **Sai**
--
--
--
+- IAM policy condition
+- IAM policy principal
+- IAM policy resource
 
 **Giải thích**
+
+
 
 ## Câu 21:
 
