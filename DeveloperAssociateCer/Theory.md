@@ -62,3 +62,25 @@
 - Logs dựa vào bộ lọc của CloudTrail
 - Route53: Log DNS queries
 
+#### CloudWatch Logs Agent
+
+- Là một chương trình chạy trên EC2 instance để push log lên CloudWatch
+- Theo mặc định, không có log từ EC2 nào tới CloudWatch
+- Đảm bảo EC2 có IAM Permissions hợp lệ
+- CloudWatch log agent cũng có thể được setup ở on-premises
+
+#### CloudWatch Unified Agent
+
+- Dùng cho virutal server như EC2 instance, on-premises server,...
+- CloudWatch LogsAgent
+    - Phiên bản cũ của Agent
+    - Chỉ có thể gửi CloudWatch Logs
+- CloudWatch Unified Agent 
+    - Sưu tập số liệu thêm ở mức hệ thống chẳng hạn như RAM, processes,...
+    - Sưu tập log để gửi tới CloudWatch Logs
+    - Tập trung hóa cấu hình sử dụng SSM Parameter Store
+
+
+
+
+

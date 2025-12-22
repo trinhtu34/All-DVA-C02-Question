@@ -743,40 +743,54 @@ là DVA, Bạn sẽ đề xuất kiến trúc IAM nào để có thể áp dụn
 
 **Giải thích**
 
+IAM policy variables là cách đúng và tối ưu để tạo policy dùng chung cho tất cả user, mỗi người chỉ truy cập được thư mục của mình trong S3. IAM policy variables cho phép tham chiếu đến thông tin của user đang request.
 
+example : ${aws:username}
 
-## Câu 21:
+${aws:userid}
+
+## Câu 63: 1 ứng dụng được host bởi 1 bên thứ 3 và được expose tại yourapp.3rdparty.com. Bạn muốn users của bạn truy cập vào ứng dụng sử dụng www.mydomain.com, cái mà bạn đang quản lý bằng Route 53
+
+Route 53 record nào sẽ giúp bạn tạo ?
 
 **Đúng**
--
+- Create a CNAME record
 
 **Sai**
--
--
--
+- Create an Alias Record
+- Create a PTR record
+- Create an A record
 
 **Giải thích**
 
-## Câu 21:
+1 CNAME record sẽ ánh xạ DNS queries cho tên của record hiện tại, chẳng hạn như acme.example.com, tới domain khác ví dụ example.com
+
+## Câu 64: Là 1 Dev, bạn đang làm việc để tạo 1 ứng dụng sử dụng AWS SDK. Điều nào sâu đây đại diện cho thứ tự các bước hợp lệ để tạo 1 ứng dụng sử dụng AWS SDK ?
 
 **Đúng**
--
+- Create the app from a template provided by AWS CDK -> Add code to the app to create resources within stacks -> Build the app (optional) -> Synthesize one or more stacks in the app -> Deploy stack(s) to your AWS account
 
 **Sai**
--
--
--
+- Create the app from a template provided by AWS CDK -> Add code to the app to create resources within stacks -> Synthesize one or more stacks in the app -> Deploy stack(s) to your AWS account -> Build the app
+- Create the app from a template provided by AWS CloudFormation -> Add code to the app to create resources within stacks -> Synthesize one or more stacks in the app -> Deploy stack(s) to your AWS account -> Build the app
+- Create the app from a template provided by AWS CloudFormation -> Add code to the app to create resources within stacks -> Build the app (optional) -> Synthesize one or more stacks in the app -> Deploy stack(s) to your AWS account
 
 **Giải thích**
 
-## Câu 21:
+Thứ tự chuẩn : Tạo ứng dụng từ CDK template -> thêm code để tạo tài nguyên trong stack -> Build project nếu cần -> Tổng hợp 1 hoặc nhiều stack vào app -> Deploy stack lên AWS 
+
+## Câu 65: Một công ty SaaS vận hành 1 web chăm sóc sức khỏe đucợ sử dụng bởi người dùng rộng rãi trên toàn thế giới. Đã có requests bởi mobile devs đểcung cấp public APIs cho các tính năng nhất định. Bạn quyết định cung cấp các APIs này cho các Dev mobile như là 1 sản phẩm.
+
+Lựa chọn nào sau đây sẽ cho phép bạn làm điều đó ?
 
 **Đúng**
--
+- Use API Gateway Usage Plans
 
 **Sai**
--
--
--
+- Use CloudFront Usage Plans
+- Use AWS Billing Usage Plans
+- Use AWS Lambda Custom Authorizers
 
 **Giải thích**
+
+
