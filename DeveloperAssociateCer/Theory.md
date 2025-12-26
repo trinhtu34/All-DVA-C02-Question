@@ -80,7 +80,4 @@
     - Sưu tập log để gửi tới CloudWatch Logs
     - Tập trung hóa cấu hình sử dụng SSM Parameter Store
 
-
-
-
-
+####
