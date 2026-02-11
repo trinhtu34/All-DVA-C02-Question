@@ -712,560 +712,402 @@ Lựa chọn nào sau đây có thể được sử dụng để triển khai 1 
 
 
 
-## Câu 21:
+## Câu 41: Công ty của bạn vận hành logic kinh doanh nhỏ hơn trên các thành phần ứng dụng nhỏ, nó thực hiện nhiều chức năng khác nhau. Một số tính năng xử lý thông tin trong vài giây trong khi các tính năng khác có vẻ tốn nhiều thời gian hơn để hoàn thành. Quản lý của bạn yêu cầu bạn tách các thành phần tốn nhiều thời gian đảm bảo ứng dụng phần phầm không bị quá tải. Bạn quyết định cấu hình SQS để hoạt động với Elastic Beanstalk configuration. 
+
+Môi trường Elastic Beanstalk nào sau đây bạn nên chọn để đáp ứng yêu cầu này ? 
 
 **Đúng**
--
+- Dedicated worker environment
 
 **Sai**
--
--
--
+- Single Instance with Elastic IP
+- Load-balancing, Autoscaling environment
+- Single Instance Worker node
+
+**Giải thích**
+
+Nếu ứng dụng AWS Elastic Beanstalk của bạn thực hiện các hoạt động hoặc workflows tốn nhều thời gian để hoàn thành, bạn có thể tách tasks tới môi trường để các worker chuyên biệt. Tách frontend web app của bạn ra khỏi việc thực hiện các hoạt động bị block là 1 cách thông thường để đảm bảo ứng dụng phản hồi trong khả năng load. 
+
+## Câu 42: 1 ứng dụng chạy trên EC2 instance và xử lý đơn đặt hàng thường vào buổi tối. EC2 instance này cần truy cập vào các đơn đặt hàng lưu trong S3. 
+
+Bạn nên đưa ra lời khuyên thế nào để EC2 instance có thể truy cập S3 một cách bảo mật 
+
+**Đúng**
+- Use an IAM role
+
+**Sai**
+- Create an IAM programmatic user and store the access key and secret access key on the EC2 `~/.aws/credentials` file.
+- Use EC2 User Data
+- Create an S3 bucket policy that authorises public access
 
 **Giải thích**
 
 
 
-## Câu 21:
+## Câu 43: Là một phần trong việc nâng cấp kỹ năng của nhân viên, Các dev của team bạn đã ủy quyền một số trách nhiệm cho các DevOps. Bây giờ các dev có toàn quyền mô hình hóa toàn bộ phần mềm xử lý việc delivery, từ coding tới deployment. Là team leader, bây giờ bạn chịu trách nhiệm cho bất kỳ việc chấp thuận thủ công nào cần thiết trong quá trình xử lý 
+
+Cách tiếp cận nào sau đây hỗ trợ được cho workflows này ? 
 
 **Đúng**
--
+- Create one CodePipeline for your entire flow and add a manual approval step
 
 **Sai**
--
--
--
+- Use CodePipeline with Amazon Virtual Private Cloud
+- Create deeply integrated AWS CodePipelines for each environment
+- Create multiple CodePipelines for each environment and link them using AWS Lambda
+ 
+**Giải thích**
+
+
+
+## Câu 44: 1 teram dev sử dụng S3 bucket để upload file. Dẫn tới chia sẻ quyền truy cập, objects trong S3 bucket có các người sở hữu khác nhau làm nó khó để quản lý objects
+
+Là 1 DVA, lựa chọn nào sau đây bạn sẽ đề xuất để tự động thiết lập quyền sở hữu cho S3 bucket, đồng thời cũng là chủ sở hữu của tất cả objects trong bucket đó, bất kể tài khoản AWS nào được sử dụng để upload objects ? 
+
+**Đúng**
+- Use S3 Object Ownership to default bucket owner to be the owner of all objects in the bucket
+
+**Sai**
+- Use S3 CORS to make the S3 bucket owner, the owner of all objects in the bucket
+- Use Bucket Access Control Lists (ACLs) to control access on S3 bucket and then define its owner
+- Use S3 Access Analyzer to identify the owners of all objects and change the ownership to the bucket owner
+ 
+**Giải thích**
+
+S3 Object Ownership là tính năng giúp S3 kiểm soát owner của object là account nào. 
+
+## Câu 45: Công ty của bạn đang lên kế hoạt di chuyển khỏi reserve EC2 instance và muốn áp dụng các kiến trúc serverless linh hoạt hơn. Lựa chọn nào sau đây là đơn giản nhất và tốn ít công sức nhất của việc triển khai Docker container trong kiến trúc serverless này ? 
+
+**Đúng**
+- Amazon Elastic Container Service (Amazon ECS) on Fargate
+
+**Sai**
+- Amazon Elastic Container Service (Amazon ECS) on EC2
+- Amazon Elastic Kubernetes Service (Amazon EKS) on Fargate
+- AWS Elastic Beanstalk
 
 **Giải thích**
 
 
 
-## Câu 21:
+## Câu 46: 2 policies được attach vào 1 IAM user. Trạng thái Policy đầu tiên đã bị denied rõ ràng cho tất cả truy cập từ EC2 instance. Trạng thái Policy thứ 2 chỉ rõ người dùng được cho phép quyền cho hành động `EC2:Describe`
+
+Khi Người dùng thử sử dụng hành động `Describle` trên 1 EC2 instance sử dụng CLI, Output sẽ là gì ?   
 
 **Đúng**
--
+- The user will be denied access because one of the policies has an explicit deny on it
 
 **Sai**
--
--
--
+- The IAM user stands in an invalid state, because of conflicting policies
+- The order of the policy matters. If policy 1 is before 2, then the user is denied access. If policy 2 is before 1, then the user is allowed access
+- The user will get access because it has an explicit allow
 
 **Giải thích**
 
 
 
-## Câu 21:
+## Câu 47: Bạn có 1 ASG được cấu hình minimum capacity là 1 và maximum capacity là 5, được thiết kế để launch EC2 instance trên 3 AZs. Trong suốt thời gian sử dụng ít, toàn bộ 1 AZ đã bị down và application của bạn bị trải qua downtime. 
+
+Lựa chọn nào bạn có thể làm để có thể đảm bảo ứng dụng của bạn duy trì HA ? 
 
 **Đúng**
--
+- Increase the minimum instance capacity of the Auto Scaling Group to 2
 
 **Sai**
--
--
--
+- Change the scaling metric of auto-scaling policy to network bytes
+- Enable RDS Multi-AZ
+- Configure ASG fast failover
 
 **Giải thích**
 
 
 
-## Câu 21:
+## Câu 48: 1 công ty giao dịch chứng khoán high-frequency đang migrate message queue từ việc tự quản lý lên AWS SQS. Team dev tại công ty muốn giảm thiểu chi phí sử dụng SQS.
+
+Là 1 DVA, lựa chọn nào sau đây bạn sẽ gợi ý để giải quyết trường hợp này ? 
 
 **Đúng**
--
+- Use SQS long polling to retrieve messages from your Amazon SQS queues
 
 **Sai**
--
--
--
+- Use SQS visibility timeout to retrieve messages from your Amazon SQS queues
+- Use SQS message timer to retrieve messages from your Amazon SQS queues
+- Use SQS short polling to retrieve messages from your Amazon SQS queues
 
 **Giải thích**
 
 
 
-## Câu 21:
+## Câu 48: 1 Dev muốn lưu trữ có tính bảo mật 1 access token và cho phép 1 ứng dụng xử lý giao dịch vận hành trên EC2 để xác thực và gửi 1 chat message thông qua chat API tới team support của công ty khi 1 giao dịch không hợp lệ bị phát hiện. Trong khi giảm thiểu nỗ lực quản lý, chat API access token phải được mã hóa ở cả REST và IN TRANSIT, và cũng có thể truy cập từ các AWS Account khác.
+
+Giải pháp gì là hiệu quả nhất cho trường hợp này ? 
 
 **Đúng**
--
+- Leverage AWS Secrets Manager with an AWS KMS customer-managed key to store the access token as a secret and configure a resource-based policy for the secret to allow access from other accounts. Modify the IAM role of the EC2 instances with permissions to access Secrets Manager. Fetch the token from Secrets Manager and then use the decrypted access token to send the message to the chat
 
 **Sai**
--
--
--
+- Store AWS KMS encrypted access token in a DynamoDB table and configure a resource-based policy for the DynamoDB table to allow access from other accounts. Modify the IAM role of the EC2 instances with permissions to access the DynamoDB table. Fetch the token from the Dynamodb table and then use the decrypted access token to send the message to the chat
+- Leverage SSE-KMS to store the access token as an encrypted object on S3 and configure a resource-based policy for the S3 bucket to allow access from other accounts. Modify the IAM role of the EC2 instances with permissions to access the S3 object. Fetch the token from S3 and then use the decrypted access token to send the message to the chat
+- Leverage AWS Systems Manager Parameter Store with an AWS KMS customer-managed key to store the access token as a SecureString parameter and configure a resource-based policy for the parameter to allow access from other accounts. Modify the IAM role of the EC2 instances with permissions to access Parameter Store. Fetch the token from Parameter Store using the with decryption flag and then use the decrypted access token to send the message to the chat
 
 **Giải thích**
 
 
 
-## Câu 21:
+## Câu 50: 1 dev đang làm việc trên 1 AWS Lambda functions để đọc dữ liệu từ S3 object và ghi dữ liệu vào 1 DynamoDB. Mặc dù function triggers thành công từ S3 event notification ngay khi đối tượng được tạo, nhưng nó gặp failure trong khi đang cố gắng ghi dữ liệu vào DynamoDB table. 
 
+Lý do có thể của việc bị Failure là gì ? 
+ 
 **Đúng**
--
+- The Lambda function does not have IAM permissions to write to DynamoDB
 
 **Sai**
--
--
--
+- The Lambda function's provisioned concurrency limit has been exceeded
+- DynamoDB table does not have a Gateway VPC Endpoint, which is required by the Lambda function for a successful write
+- The Lambda function's reserved concurrency limit has been exceeded
+
+**Giải thích**
+
+Cần sử dụng identity-based policy để cho phép quyền read và write tới DynamoDB table được chỉ định.  
+
+## Câu 51: 1 công ty IT có serverless stack được triển khai với AWS X-Ray. Các dev ở công ty đã nhận thấy 1 high volume của các dữ liệu vào X-Ray và AWS monthly usage charges tăng vọt là hệ quả. Các dev đã được yêu cầu thay đổi để giảm thiểu vấn đề này ? 
+
+Là 1 DVA, giải pháp nào sau đây bạn sẽ gợi ý để thu thập xu hướng theo dõi trong khi giảm chi phí và gián đoạn ở mức tối thiểu ? 
+
+**Đúng**
+- Enable X-Ray sampling
+
+**Sai**
+- Implement a network sampling rule
+- Use Filter Expressions in the X-Ray console
+- Custom configuration for the X-Ray agents
+
+**Giải thích**
+
+X-Ray sampling không ghi lại 100% request, chỉ ghi lại một số request đại diện, đủ để phân tích latency, phát hiện error, quan sát tracing trend của hệ thống 
+
+## Câu 52: Là 1 dev, bạn đang tìm cách tạo cấu hình tùy chỉnh cho EC2 instance đang vận hành trên 1 ASG. Giải pháp nên cho phép gom nhóm cho auto-scale dựa vào metrics 'average RAM usage' của các EC2 instances. 
+
+Giải pháp nào cung cấp lựa chọn tốt nhất ? 
+
+**Đúng**
+- Create a custom metric in CloudWatch and make your instances send data to it using PutMetricData. Then, create an alarm based on this metric
+
+**Sai**
+- Migrate your application to AWS Lambda
+- Create a custom alarm for your ASG and make your instances trigger the alarm using PutAlarmData API
+- Enable detailed monitoring for EC2 and ASG to get the RAM usage data and create a CloudWatch Alarm on top of it
+
+**Giải thích**
+
+CloudWatch không thu thấp RAM usage theo mặc định, vậy nên phải tự gửi metric lên CloudWatch, sau đó tạo CloudWatch Alarm rồi gắn vào Auto Scaling Policy
+
+## Câu 53: 1 dev đang thiết kế 1 AWS CloudFormation template cho việc deploy EC2 instance trên nhiều tài khoản AWS. Các dev cần chọn EC2 instances từ 1 danh sách loại instances được chấp thuận trước.
+
+Các dev có thể thực hiện giải pháp nào để tích hợp các danh sách instance types được xác thực vào CloudFormation template
+
+**Đúng**
+- Configure a parameter with the list of EC2 instance types as AllowedValues in the CloudFormation template
+
+**Sai**
+- Configure separate parameters for each EC2 instance type in the CloudFormation template
+- Configure a mapping having a list of EC2 instance types as parameters in the CloudFormation template
+- Configure a pseudo parameter with the list of EC2 instance types as AllowedValues in the CloudFormation template
+
+**Giải thích**
+
+Vì `Parameters` cho phép user nhập giá trị khi deplooy stack. `AllowedValues` giới hạn giá trị được phép nhập.
+
+## Câu 54: web app của bạn reads và writes dữ liệu từ DynamoDB table của bạn. Table này được cấp phát 400 WCU được chia ra 4 partitions. Một trong các partitions nhận 250 WCU/s trong khi các partitions khác nhận ít hơn nhiều. Bạn nhận lỗi `ProvisionedThroughputExceededException`
+
+Lý do nào giống lỗi này ?
+
+**Đúng**
+- You have a hot partition
+
+**Sai**
+- Write Capacity Units (WCU’s) are applied across to all your DynamoDB tables and this needs reconfiguration
+- Configured IAM policy is wrong
+- CloudWatch monitoring is lagging
 
 **Giải thích**
 
 
 
-## Câu 21:
+## Câu 55: Team dev tại 1 công ty truyền thông đang cân nhắc sử dụng ElastiCache để tăng performance cho các database đang có. Là 1 DVA, trường hợp nào sau đây bạn khuyên là phù hợp nhất cho ElastiCache ? 
 
 **Đúng**
--
+- Use ElastiCache to improve performance of compute-intensive workloads
+- Use ElastiCache to improve latency and throughput for read-heavy application workloads
 
 **Sai**
--
--
--
+- Use ElastiCache to improve latency and throughput for write-heavy application workloads
+- Use ElastiCache to improve performance of Extract-Transform-Load (ETL) workloads
+- Use ElastiCache to run highly complex JOIN queries
+
+**Giải thích**
+
+ElastiCache có thể cải thiện performance cho các workloads tính toán phức tạp bởi vì: sẽ phải tính toán rất lâu mới có kết quả, để giảm số lần phải tính toán lại các kết quả cũ thì có thể dùng cache, để lần lấy dữ liệu sau có thể lấy mà không cần phải tính toán lại
+
+## Câu 56: 1 công ty sử dụng RDS là databases của họ. Để cải thiện trải nghiệm người dùng, công ty đã quyết định dùng 1 fully-managed caching layer để có độ tinh cậy cao hơn và cấu hình đặt phía trước RDS.
+
+Lựa chọn nào sau đây là đúng,với yêu cầu giữ nội dung được tạo ra là tiết kiệm chi phí ? 
+
+**Đúng**
+- Implement Amazon ElastiCache Redis in Cluster Mode
+
+**Sai**
+- Implement Amazon ElastiCache Memcached
+- Install Redis on an Amazon EC2 instance
+- Migrate the database to Amazon Redshift
+
+**Giải thích**
+
+Có 3 keyword là: Caching layer trước RDS, độ tin cậy cao, Nội dung cache với chi phí => nội dung trong cache không được mất dễ dàng, dịch vụ phải fully-managed
+
+## Câu 57: 1 thành viên mới trong team của bạn đang tạo 1 Dead Letter Queue cho AWS Lambda functions. Là 1 DVA, bạn có thể làm gì để giúp anh ấy xác định các trường hợp AWS Lambda sẽ thêm 1 message vào DLQ sau khi được xử lý ? 
+
+**Đúng**
+- The Lambda function invocation is asynchronous
+- The event fails all processing attempts
+
+**Sai**
+- The event has been processed successfully
+- The Lambda function invocation is synchronous
+- The Lambda function invocation failed only once but succeeded thereafter
+
+**Giải thích**
+
+DLQ dùng để lưu lại các event bị xử lý thất bại, giúp debug/ retry thủ công/ audit. Nhưng không phải mọi lỗi của Lambda đều vào DLQ.
+
+Điều kiện để event được đưa vào DLQ là: 
+- Invocation phải là ASYNCHRONOUS
+- Event bị fail sau tất cả các lần retry 
+
+## Câu 58: Công ty của bạn host 1 static website trên S3 được viết bằng HTML 5. Mục tiêu của website là hướng tới những người đam mê hàng không và nó tăng trưởng trên toàn thế giới cùng với hàng trăm hàng ngàn người truy cập vào website hàng tháng. Trong khi người dùng ở Mỹ có được trải nghiệm tốt, người dùng từ phần khác của thế giới nhận phản hồi chậm và bị lag.
+
+Dịch vụ nào có thể giảm thiểu vấn đề này ? 
+
+**Đúng**
+- Use Amazon CloudFront
+
+**Sai**
+- Use Amazon ElastiCache for Redis
+- Use Amazon S3 Transfer Acceleration
+- Use Amazon S3 Caching
 
 **Giải thích**
 
 
 
-## Câu 21:
+## Câu 59: 1 junior dev đang làm việc trên ECS instance đã terminate 1 container instance trên ECS theo chỉ thị của team lead. Nhưng container instance tiếp tục xuất hiện là 1 resource của ECS Cluster
+
+Là 1 DVA, Giải pháp nào sau đây bạn sẽ khuyên để fix hiện tượng này ? 
 
 **Đúng**
--
+- You terminated the container instance while it was in STOPPED state, that lead to this synchronization issues
 
 **Sai**
--
--
--
+- The container instance has been terminated with AWS CLI, whereas, for ECS instances, Amazon ECS CLI should be used to avoid any synchronization issues
+- You terminated the container instance while it was in RUNNING state, that lead to this synchronization issues
+- A custom software on the container instance could have failed and resulted in the container hanging in an unhealthy state till restarted again
+
+**Giải thích**
+
+ECS không tự dọn dẹp container instance nếu: 
+- EC2 instance bị stop
+- Terminate không đúng cách
+
+Lý do STOPPED state gây ra vấn đề này là: ECS không biết instance đã chết, vậy nên instance vẫn bị treo trong cluster.
+
+## Câu 60: Ứng dụng của bạn được deploy tự động sử dụng AWS Elastic Beanstalk. File cấu hình YAML của bạn được lưu trong thư mục `.ebextensions` và file mới được thêm vào hoặc cập nhật thường xuyên. Team DevOps không muốn deploy lại ứng dụng mỗi lần có cấu hình thay đổi, thay vào đó họ thích quản lý cấu hình từ bên ngoài, bảo mật và load dynamically vào ứng dụng mỗi lần.
+
+Lựa chọn gì cho phép bạn làm điều này ? 
+
+**Đúng**
+- Use SSM Parameter Store
+
+**Sai**
+- Use Environment variables
+- Use S3
+- Use Stage Variables
+
+**Giải thích**
+
+Bạn có thể lưu trữ dữ liệu chẳng hạn như paswrods, database strings, license codes là parameter values. Đối với trường hợp này, DevOps team không muốn deploy lại ứng dụng mỗi lần cấu hình thay đổi, vì vậy họ có thể sử dụng SSM để lưu trữ cấu hình bên ngoài
+
+## Câu 61: 1 nhà cung cấp dịch vụ viễn thông lưu trữ dữ liệu khách hàng quan trọng của họ trên S3. Lựa chọn nào sau đây có thể được dùng để control access dữ liệu được lưu trong S3
+
+**Đúng**
+- Query String Authentication, Access Control Lists (ACLs)
+- Bucket policies, Identity and Access Management (IAM) policies
+
+**Sai**
+- Query String Authentication, Permissions boundaries
+- Permissions boundaries, Identity and Access Management (IAM) policies
+- IAM database authentication, Bucket policies 
+
+**Giải thích**
+
+Khách hàng có thể sử dụng 4 cơ chế control access vào S3 là: Identity and Access Management (IAM) policies, bucket policies, Access Control Lists (ACLs), and Query String Authentication.
+
+## Câu 62: 1 công ty digital marketing có website được host trên 1 S3 bucket A. Team dev nhận thấy fonts của web được host trên S3 bucket khác là bucket B không load được trên website A.
+
+Giải pháp nào sau đây có thể được sử dụng để giải quyết vấn đề này ? 
+
+**Đúng**
+- Configure CORS on the bucket B that is hosting the web fonts to allow Bucket A origin to make the requests
+
+**Sai**
+- Update bucket policies on both bucket A and bucket B to allow successful loading of the web fonts on the website
+- Configure CORS on the bucket A that is hosting the website to allow any origin to respond to requests
+- Enable versioning on both the buckets to facilitate correct functioning of the website
+
+**Giải thích**
+
+Bị permission denied thì do Bucket Policy hoặc ACLs. Còn bị không load được thì là do CORS.
+
+## Câu 63: 1 công ty có 1 workload yêu cầu 14000 IOPS nhất quán cho dữ liệu phải bền và bảo mật. Tiêu chuẩn tuân thủ của công ty quy định dữ liệu phải được bảo mật ở mọi quy trình của vòng đời trên tất cả EBS volume họ sử dụng.
+
+Statement nào sau đây là đúng đề cập đến bảo mật của EBS ? 
+
+**Đúng**
+- EBS volumes support both in-flight encryption and encryption at rest using KMS
+
+**Sai**
+- EBS volumes do not support in-flight encryption but do support encryption at rest using KMS
+- EBS volumes support in-flight encryption but does not support encryption at rest
+- EBS volumes don't support any encryption
 
 **Giải thích**
 
 
 
-## Câu 21:
+## Câu 64: Gần đây bạn đã bắt đầu 1 nền tàng học online sử dụng Lambda và API Gateway. Phiên bản đầu tiên đã thành công, và bạn đã bắt đầu phát triển tính năng mới cho phiên bản thứ 2. Bạn muốn triển khai phiên bản thứ 2 bằng cách chỉ điều hướng 10% traffic tới Lambda version mới.
 
 **Đúng**
--
+- Use AWS Lambda aliases
 
 **Sai**
--
--
--
+- Use Tags to distinguish the different versions
+- Deploy your Lambda in a VPC
+- Use environment variables
 
 **Giải thích**
 
 
 
-## Câu 21:
+## Câu 65: Bạn đang tạo 1 mobile app cần truy cập AWS API Gateway. Người dùng sẽ cần đăng ký trước khi họ có thể truy cập API của bạn và bạn muốn quản lý người dùng được fully managed.
+
+Lựa chọn xác thực nào bạn nên dùng cho API Gateway layer của bạn 
 
 **Đúng**
--
+- Use Cognito User Pools
 
 **Sai**
--
--
--
+- Use Lambda Authorizer
+- Use API Gateway User Pools
+- Use IAM permissions with sigv4
 
 **Giải thích**
 
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
-
-
-
-## Câu 21:
-
-**Đúng**
--
-
-**Sai**
--
--
--
-
-**Giải thích**
