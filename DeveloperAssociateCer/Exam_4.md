@@ -1061,28 +1061,32 @@ Giải pháp nào sau đây có thể được sử dụng để giải quyết 
 
 
 
-## Câu 64: Công ty của bạn quản lý hàng trăm EC2 instances chạy Linux OS. Các instances được cấu hình trên nhiều AZs trong `eu-west-3`. Quản lý của bạn đã yêu 
+## Câu 64: Công ty của bạn quản lý hàng trăm EC2 instances chạy Linux OS. Các instances được cấu hình trên nhiều AZs trong `eu-west-3`. Quản lý của bạn đã yêu cầu sưu tập các metric của system memory trên tất cả EC2 instances sử dụng 1 script.
+
+Giải pháp nào sau đây sẽ giúp bạn sưu tập dữ liệu này ? 
 
 **Đúng**
--
+- Use a cron job on the instances that pushes the EC2 RAM statistics as a Custom metric into CloudWatch
 
 **Sai**
--
--
--
+- Extract RAM statistics from the standard CloudWatch metrics for EC2 instances
+- Extract RAM statistics using the instance metadata
+- Extract RAM statistics using X-Ray
 
 **Giải thích**
 
 
 
-## Câu 21:
+## Câu 65: Bạn đang bắt đầu cho 1 sự kiện viêt JS bằng Alexa skill. Khi bạn test lệnh bằng giọng, bạn tìm thấy một số intent không được gọi như mong muốn và bạn đang gặp khó khăn trong việc tìm hiểu nguyên nhân. Bạn đã đính kèm đoạn code sau `console.log(JSON.stringify(this.event))` hi vọng lấy chi tiết về requests của bạn trong AWS Alexa skill.
+
+Bạn muốn logs được lưu trữ trong S3 bucket tên là `MyAlexaLog`. Cách để đạt được điều này là thế nào ? 
 
 **Đúng**
--
+- Use CloudWatch integration feature with S3
 
 **Sai**
--
--
--
+- Use CloudWatch integration feature with Glue
+- Use CloudWatch integration feature with Lambda
+- Use CloudWatch integration feature with Kinesis
 
 **Giải thích**
