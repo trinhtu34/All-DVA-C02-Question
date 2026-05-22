@@ -209,33 +209,116 @@ Công ty cần MINIMUM application downtime. Ability to rollback quickly. Trong 
 - Swap Route53 records để redirect traffic từ blue -> green
 - Rollback bằng swap lại là xong. Vừa đơn giản vừa nhanh, tùy vào TTL của Route53 records
 
-## Câu 26: A dev team has created AWS CloudFormation templates that are reusable by taking advantage of input parameters to name resource based on client names. 
+## Câu 26: A dev team has created AWS CloudFormation templates that are reusable by taking advantage of input parameters to name resource based on client names. You would like to save your templates on the cloud, which storage option should you choose ? 
 
 **Đúng**
--
+- S3
 
 **Sai**
--
--
--
+- ECR
+- EFS
+- EBS
 
 **Giải thích**
 
 
 
-## Câu 21:
+## Câu 27: A developer is configuring ECS container instances to send log information to CloudWatch Logs. For the container instances to be able to send log data to CloudWatch Logs, an IAM policy needs to be created that will allow container instances to use CloudWatch Logs APIs. Which policy is the right fit for the givent requirement ? 
 
 **Đúng**
--
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+                "logs:DescribeLogStreams"
+            ],
+            "Resource": [
+                "arn:aws:logs:*:*:*"
+            ]
+        }
+    ]
+}
+```
 
 **Sai**
--
--
--
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": [
+                "arn:aws:logs:*:*:*"
+            ]
+        }
+    ]
+}
+```
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+                "logs:DescribeLogGroups"
+            ],
+            "Resource": [
+                "arn:aws:logs:*:*:*"
+            ]
+        }
+    ]
+}
+```
+```
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents,
+                "ecs:DescribeServices"
+            ],
+            "Resource": [
+                "arn:aws:logs:<ARN of the Log Group>"
+            ]
+        }
+    ]
+}
+```
 
 **Giải thích**
 
+Trong ECS EC2 launch type, container instance dùng `awslog` log driver để đẩy log từ container lên CloudWatch Logs.
 
+Luồng hoạt động thường là: 
+```
+Container sinh log stdout/stderr
+        ↓
+Docker awslogs driver / ECS agent
+        ↓
+CloudWatch Logs Log Group
+        ↓
+CloudWatch Logs Log Stream
+        ↓
+PutLogEvents
+```
 
 ## Câu 21:
 
