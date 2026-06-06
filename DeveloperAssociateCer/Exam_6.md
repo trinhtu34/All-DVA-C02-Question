@@ -285,6 +285,7 @@ Công ty cần MINIMUM application downtime. Ability to rollback quickly. Trong 
 }
 ```
 ```
+{
     "Version": "2012-10-17",
     "Statement": [
         {
@@ -320,33 +321,34 @@ CloudWatch Logs Log Stream
 PutLogEvents
 ```
 
-## Câu 21:
+## Câu 28: You are working for a technology startup building web and mobile applications. You would like to pull Docker images from ECR repository called `demo` so you can start running local tests against the latest application version. Which of the following commands must yoou run to pull existing images from ECR ( select two options )
 
 **Đúng**
--
+- `$(aws ecr get-login --no-include-email)`
+- `docker pull 1234567890.dkr.ecr.eu-west-1.amazonaws.com/demo:latest`
 
 **Sai**
--
--
--
+- aws docker push 1234567890.dkr.ecr.eu-west-1.amazonaws.com/demo:latest
+- docker build -t 1234567890.dkr.ecr.eu-west-1.amazonaws.com/demo:latest
+- docker login -u $AWS_ACCESS_KEY_ID -p $AWS_SECRET_ACCESS_KEY
 
 **Giải thích**
 
 
 
-## Câu 21:
+## Câu 29:  Your web application front end consists of 5 EC2 instances behind an ALB. You have configured your web application to capture the IP address of the client making requests. When viewing the data captured you notice that every IP address being captured is the same, which also happens to be the IP aaddress of the ALB. What should you do to identify the true IP address of the client ? 
 
 **Đúng**
--
+- Look into the X-Forwarded-For header in the backend
 
 **Sai**
--
--
--
+- Look into the X-Forwarded-Proto header in the backend
+- Modify the front-end of the website so that the users send their IP in the requests
+- Look into the client's cookie
 
 **Giải thích**
 
-
+X-Forwarded-For header giúp bạn xác định địa chỉ IP của client khi bạn sử dụng HTTP hoặc HTTPS LB. Bởi vì LB đứng giữa traffic giữa Client và Server, serrver của bạn truy cập log chỉ chứa IP address của LB. Để thấy IP của client, dùng header này. ELB lưu IP của client trong request header và chuyển header tới server của bạn. 
 
 ## Câu 21:
 
